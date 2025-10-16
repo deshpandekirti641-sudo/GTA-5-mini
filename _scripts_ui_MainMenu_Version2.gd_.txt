@@ -1,0 +1,7 @@
+extends Control
+
+func _on_play_usa_pressed():
+    get_tree().change_scene("res://scenes/usa_map.tscn")
+
+func _on_play_india_pressed():
+    get_tree().change_scene("res://scenes/india_map.tscn")

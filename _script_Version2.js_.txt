@@ -1,0 +1,26 @@
+const apiKey = "YOUR_API_KEY_HERE"; // Replace with your OpenWeatherMap API key
+
+document.getElementById('weatherForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const city = document.getElementById('cityInput').value.trim();
+  const resultDiv = document.getElementById('weatherResult');
+  resultDiv.innerHTML = 'Loading...';
+
+  try {
+    const resp = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`
+    );
+    if (!resp.ok) throw new Error('City not found');
+    const data = await resp.json();
+
+    resultDiv.innerHTML = `
+      <h2>${data.name}, ${data.sys.country}</h2>
+      <p><b>${data.weather[0].main}:</b> ${data.weather[0].description}</p>
+      <p><b>Temperature:</b> ${data.main.temp}°C</p>
+      <p><b>Humidity:</b> ${data.main.humidity}%</p>
+      <p><b>Wind:</b> ${data.wind.speed} m/s</p>
+    `;
+  } catch (err) {
+    resultDiv.innerHTML = `<span style="color:#ff7675;">Error: ${err.message}</span>`;
+  }
+});

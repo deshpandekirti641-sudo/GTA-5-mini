@@ -1,0 +1,10 @@
+extends Node
+
+var current_map = "usa_map"
+
+func _ready():
+    # Simple navigation
+    if current_map == "usa_map":
+        get_tree().change_scene("res://scenes/usa_map.tscn")
+    else:
+        get_tree().change_scene("res://scenes/india_map.tscn")
